@@ -9,19 +9,4 @@ public class Teacher extends User {
         this.borrowingLimit = Constants.TEACHERLIMIT;
     }
 
-    @Override
-    protected boolean borrowItem(Item item) {
-        return false;
-    }
-
-    @Override
-    protected boolean returnItem(Item item) {
-        return false;
-    }
-
-    @Override
-    protected List<Item> search(SearchType searchType, String string) {
-        return List.of();
-    }
-
 }
