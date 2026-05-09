@@ -16,7 +16,45 @@ public abstract class User {
         this.borrowedItems = new ArrayList<>();
     }
 
-    protected abstract boolean borrowItem(Item item);
-    protected abstract boolean returnItem(Item item);
-    protected abstract List<Item> search(SearchType searchType, String string);
+    /**
+     * Borrows a specific item, changing its status.
+     * @param item the item to borrow
+     * @return if the operation succeeded
+     */
+    protected boolean borrowItem(Item item) {
+        try {
+            if (item.status == Status.IN_STORE && borrowedItems.size() < borrowingLimit) {
+                this.borrowedItems.add(item);
+                item.status = Status.BORROWED;
+                return true;
+            } else {
+                throw new RuntimeException();
+            }
+        } catch (RuntimeException exception) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns an item
+     * @param item the item to be removed
+     * @return is the operation succeeded
+     */
+    protected boolean returnItem(Item item) {
+        try {
+            if (borrowedItems.contains(item)) {
+                borrowedItems.remove(item);
+                item.status = Status.IN_STORE;
+                return true;
+            } else {
+                throw new RuntimeException();
+            }
+        } catch (RuntimeException exception) {
+            return false;
+        }
+    }
+
+    protected List<Item> search(SearchType searchType, String string) {
+        return List.of();
+    }
 }
