@@ -7,4 +7,9 @@ public class Magazine extends Item {
         super(title, status, author);
         this.issueNumber = issueNumber;
     }
+
+    @Override
+    public String toString() {
+        return "m" + ',' + super.toString() + ',' + issueNumber + '\n';
+    }
 }

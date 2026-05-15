@@ -16,7 +16,7 @@ public class Book extends Item {
      * @return INVALID if the ISBN does not follow adequate formatting, or the initial ISBN if it's correct
      */
     public static String verifyISBN(String str) {
-        if (str.length() != 12 ) {
+        if (str.length() != 13 ) {
             return "INVALID";
         }
         for (Character c : str.toCharArray()) {
@@ -25,5 +25,10 @@ public class Book extends Item {
             }
         }
         return str;
+    }
+
+    @Override
+    public String toString() {
+        return "b" + ',' + super.toString() + ',' + ISBN + ',' +  genre + '\n';
     }
 }

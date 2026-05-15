@@ -7,4 +7,9 @@ public class DVD extends Item {
         super(title, status, author);
         this.duration = duration;
     }
+
+    @Override
+    public String toString() {
+        return "d" + ',' + super.toString() + ',' + duration + '\n';
+    }
 }

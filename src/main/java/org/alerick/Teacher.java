@@ -9,4 +9,9 @@ public class Teacher extends User {
         this.borrowingLimit = Constants.TEACHERLIMIT;
     }
 
+    @Override
+    public String toString() {
+        return "t" + ',' + super.toString() + "\n";
+    }
+
 }
