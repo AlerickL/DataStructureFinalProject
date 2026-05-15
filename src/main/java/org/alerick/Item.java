@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -85,5 +86,28 @@ public class Item {
     @Override
     public String toString() {
         return title + ',' + status + ',' + author;
+    }
+
+    public static class ItemComparator implements Comparator<Item> {
+        private Item.SortType sortType;
+
+        public ItemComparator(Item.SortType sortType) {
+            this.sortType = sortType;
+        }
+
+        @Override
+        public int compare(Item o1, Item o2) {
+            if (sortType.equals(SortType.TITLE) && !o1.title.equals(o2.title)) {
+                return o1.title.compareTo(o2.title);
+            } else if (sortType.equals(Item.SortType.AUTHOR) && !o1.author.equals(o2.author)) {
+                return o1.author.compareTo(o2.author);
+            } else {
+                return o1.id.compareTo(o2.id);
+            }
+        }
+    }
+    public enum SortType {
+        AUTHOR,
+        TITLE,
     }
 }

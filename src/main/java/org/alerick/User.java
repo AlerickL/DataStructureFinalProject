@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -186,5 +187,28 @@ public abstract class User {
             ids.append(",").append(item.id);
         }
         return name + ids;
+    }
+
+    public static class UserComparator implements Comparator<User> {
+        private SortType sortType;
+
+        public UserComparator(SortType sortType) {
+            this.sortType = sortType;
+        }
+
+        @Override
+        public int compare(User o1, User o2) {
+            if (sortType.equals(SortType.BORROWING_LIMIT) && o1.borrowingLimit != o2.borrowingLimit) {
+                return -1 * (o1.borrowingLimit - o2.borrowingLimit);
+            } else if (sortType.equals(SortType.NAME) && !o1.name.equals(o2.name)) {
+                return o1.name.compareTo(o2.name);
+            } else {
+                return o1.id.compareTo(o2.id);
+            }
+        }
+    }
+    public enum SortType {
+        NAME,
+        BORROWING_LIMIT,
     }
 }
