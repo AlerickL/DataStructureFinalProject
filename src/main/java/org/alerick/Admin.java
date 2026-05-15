@@ -37,6 +37,11 @@ public class Admin extends User implements Reportable {
         Item.backUpItems();
     }
 
+    public static void init() {
+        Item.initItems();
+        User.initUsers();
+    }
+
     @Override
     public String toString() {
         return "a" + ',' + super.toString() + "\n";

@@ -84,6 +84,51 @@ public abstract class User {
     }
 
     /**
+     * initializes users
+     */
+    public static void initUsers() {
+        File file = new File(Constants.USERS_CSV_PATH);
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] elements = line.split(",");
+                switch (elements[0]) {
+                    case "s" -> {
+                        Student student = new Student(elements[1]);
+                        int size = elements.length - 2;
+                        for (int i = size; i > 0; i--) {
+                            List<Item> match = Item.list.stream()
+                                    .filter(item -> item.id.equals(elements[1 + size]))
+                                    .toList();
+                            student.borrowItem(match.getFirst());
+                        }
+                    }
+                    case "t" -> {Teacher teacher = new Teacher(elements[1]);
+                        int size = elements.length - 2;
+                        for (int i = size; i > 0; i--) {
+                            List<Item> match = Item.list.stream()
+                                    .filter(item -> item.id.equals(elements[1 + size]))
+                                    .toList();
+                            teacher.borrowItem(match.getFirst());
+                        }
+                    }
+                    case "a" -> {Admin admin = new Admin(elements[1]);
+                        int size = elements.length - 2;
+                        for (int i = size; i > 0; i--) {
+                            List<Item> match = Item.list.stream()
+                                    .filter(item -> item.id.equals(elements[1 + size]))
+                                    .toList();
+                            admin.borrowItem(match.getFirst());
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * searches a user's items using stream technology
      * @param searchType the search type
      * @param string the string to search
