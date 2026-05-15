@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public abstract class User {
     protected String id;
@@ -82,8 +83,26 @@ public abstract class User {
         }
     }
 
-    protected List<Item> search(SearchType searchType, String string) {
-        return List.of();
+    /**
+     * searches a user's items using stream technology
+     * @param searchType the search type
+     * @param string the string to search
+     * @return the items that match the requisites.
+     */
+    public String searchStream(SearchType searchType, String string) {
+        switch (searchType) {
+            case AUTHOR -> {
+                return borrowedItems.stream()
+                        .filter(item -> item.author.contains(string))
+                        .toString();
+            }
+            case TITLE -> {
+                return borrowedItems.stream()
+                        .filter(item -> item.title.contains(string))
+                        .toString();
+            }
+        }
+        return null;
     }
 
     @Override
