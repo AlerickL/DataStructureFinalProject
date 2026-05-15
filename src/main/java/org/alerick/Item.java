@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Item implements Reportable{
+public class Item {
     protected String id;
     protected String title;
     private static int nextId = 1;
@@ -34,11 +34,6 @@ public class Item implements Reportable{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public List<Item> report() {
-        return List.of();
     }
 
     @Override
