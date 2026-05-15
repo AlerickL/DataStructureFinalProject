@@ -105,6 +105,35 @@ public abstract class User {
         return null;
     }
 
+    /**
+     * searches a user's items using recursion technology
+     * @param searchType the search type
+     * @param string the string to search
+     * @param items the items to be searched
+     * @return the items that match the requisites.
+     */
+    public String searchRecursion(SearchType searchType, String string, List<Item> items) {
+        if (items.isEmpty()) {
+            return "";
+        }
+        String match = "";
+        switch (searchType) {
+            case AUTHOR -> {
+                if (items.getFirst().author.contains(string)) {
+                    match = items.getFirst().toString();
+                }
+            }
+            case TITLE -> {
+                if (items.getFirst().title.contains(string)) {
+                    match = items.getFirst().toString();
+                }
+            }
+        }
+
+        items.removeFirst();
+        return match + "\n" + searchRecursion(searchType, string, items);
+    }
+
     @Override
     public String toString() {
         StringBuilder ids = new StringBuilder();
